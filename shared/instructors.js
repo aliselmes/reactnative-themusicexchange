@@ -7,7 +7,8 @@ export const INSTRUCTORS = [
         image: "/assets/images/muddywaters.jpg",
         rate: 40,
         online: true,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        featured: true
     },
     {
         id: 1,
@@ -17,7 +18,8 @@ export const INSTRUCTORS = [
         image: "/assets/images/Yo-Yo-Ma.jpg",
         rate: 25,
         online: false,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        featured: false
     },
     {
         id: 2,
@@ -27,7 +29,8 @@ export const INSTRUCTORS = [
         image: "/assets/images/Melissa_Auf_der_Maur.jpg",
         rate: 30,
         online: true,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        featured: false
     },
     {
         id: 3,
@@ -37,7 +40,8 @@ export const INSTRUCTORS = [
         image: "/assets/images/davegrohl.jpg",
         rate: 50,
         online: false,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        featured: false
     }
 
 ];
