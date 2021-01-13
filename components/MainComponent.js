@@ -2,14 +2,26 @@ import React, { Component } from 'react';
 import Home from './HomeComponent';
 import GearDirectory from './GearDirectoryComponent';
 import GearInfo from './GearInfoComponent';
-import { View, Platform } from 'react-native';
+import { View, Platform, StyleSheet, Text, ScrollView } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
+import { Icon } from 'react-native-elements';
+import SafeAreaView from 'react-native-safe-area-view';
 
 const GearDirectoryNavigator = createStackNavigator(
     {
-        GearDirectory: { screen: GearDirectory },
+        GearDirectory: { 
+                screen: GearDirectory,
+                navigationOptions: ({navigation}) => ({
+                    headerLeft: <Icon
+                        name='list'
+                        type='font-awesome'
+                        iconStyle={styles.stackIcon}
+                        onPress={() => navigation.toggleDrawer()}
+                    />    
+                })
+             },
         GearInfo: { screen: GearInfo }
     },
     {
@@ -32,26 +44,72 @@ const HomeNavigator = createStackNavigator (
     },
     {
         initialRouteName: 'Home',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({navigation}) => ({
             headerStyle: {
                 backgroundColor: '#16425b'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft: <Icon
+                        name='home'
+                        type='font-awesome'
+                        iconStyle={styles.stackIcon}
+                        onPress={() => navigation.toggleDrawer()}
+                    /> 
+        })
     }
 
 );
 
+const CustomDrawerContentComponent = props => (
+    <ScrollView>
+        <SafeAreaView
+            style={styles.container}
+            forceInset={{top: 'always', horizontal: 'never'}}>
+            <View style={styles.drawerHeader}>
+                <View>
+                    <Text style={styles.drawerHeaderText}>The Music Exchange</Text>
+                </View>
+            </View>
+            <DrawerItems {...props} />
+        </SafeAreaView>
+    </ScrollView>
+);
+
 const MainNavigator = createDrawerNavigator(
     {
-        Home: { screen: HomeNavigator },
-        GearDirectory: { screen: GearDirectoryNavigator }
+        Home: { 
+            screen: HomeNavigator,
+            navigationOptions: {
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='home'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+         },
+        GearDirectory: { 
+            screen: GearDirectoryNavigator,
+            navigationOptions: {
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='list'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+         }
     },
     {
-        drawerBackgroundColor: '#2F6690',
+        drawerBackgroundColor: '#D9DCD6',
+        contentComponent: CustomDrawerContentComponent
     }
 );
 
@@ -68,5 +126,29 @@ class Main extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    drawerHeader: {
+        backgroundColor: '#2F6690',
+        height: 140,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        flexDirection: 'row'
+    },
+    drawerHeaderText: {
+        color: '#D9DCD6',
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    stackIcon: {
+        marginLeft: 10,
+        color: '#fff',
+        fontSize: 24
+    }
+});
 
 export default Main; 

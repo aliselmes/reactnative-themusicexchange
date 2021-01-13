@@ -85,7 +85,7 @@ class Home extends Component {
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Find Musicians Near You</Text>
                 <RenderMusician item={this.state.musicians.filter(item => item.featured)[0]} />
 
-                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Learn with Local Insturctors </Text>
+                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Learn with Local Instructors </Text>
                 <RenderInstructor item={this.state.instructors.filter(item => item.featured)[0]} />
 
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Play Local Venues </Text>
