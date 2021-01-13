@@ -32,6 +32,33 @@ function RenderMusician({item}) {
     return <View />;
 }
 
+function RenderInstructor({item}) {
+    if (item) {
+        return(
+            <Card
+                featuredTitle={item.name}
+                image={require('./images/taylor.jpg')}
+            >
+                <Text style={{margin: 10, alignSelf: 'center'}}>{`${item.location} - ${item.instrument}`}</Text>
+            </Card>
+        );
+    }
+    return <View />;
+}
+
+function RenderGig({item}) {
+    if (item) {
+        return(
+            <Card title={item.venue} >
+                <Text style={{margin: 10, alignSelf: 'center'}}>{item.location}</Text>
+                <Text style={{margin: 10, alignSelf: 'center'}}>{`${item.date} - ${item.time}`}</Text>
+                <Text style={{margin: 10, alignSelf: 'center'}}>{item.details}</Text>
+            </Card>
+        );
+    }
+    return <View />;
+}
+
 
 
 class Home extends Component {
@@ -55,8 +82,15 @@ class Home extends Component {
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Buy. Sell. Trade. Locally.</Text>
                 <RenderItem item={this.state.items.filter(item => item.featured)[0]} />
 
-                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Find Muscians In Your Region</Text>
+                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Find Musicians Near You</Text>
                 <RenderMusician item={this.state.musicians.filter(item => item.featured)[0]} />
+
+                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Learn with Local Insturctors </Text>
+                <RenderInstructor item={this.state.instructors.filter(item => item.featured)[0]} />
+
+                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Play Local Venues </Text>
+                <RenderGig item={this.state.gigs.filter(item => item.featured)[0]}/>
+
             </ScrollView>
         );
     }

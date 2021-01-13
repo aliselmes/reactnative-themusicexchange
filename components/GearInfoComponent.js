@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Card, Icon } from 'react-native-elements';
 import { ITEMS } from '../shared/items';
 
-function RenderGearItem({item}) {
+function RenderGearItem(props) {
+
+    const { item } = props;
+
     if (item) {
         return (
             <Card 
@@ -16,6 +19,15 @@ function RenderGearItem({item}) {
                 <Text style={{margin: 10}}>
                     {item.description}
                 </Text>
+                <Icon 
+                    name={props.favorite ? 'heart' : 'heart-o'}
+                    type='font-awesome'
+                    color='#81C3D7'
+                    raised
+                    reverse
+                    onPress={() => props.favorite ?
+                        console.log('Already set as a favorite') : props.markFavorite()}
+                />
             </Card>
         );
     }
@@ -26,18 +38,27 @@ class GearInfo extends Component {
     constructor(props) {
         super(props);
         this.state={
-            items: ITEMS
+            items: ITEMS,
+            favorite: false
         };
     }
 
     static navigationOptions = {
         title: 'Item Information'
     }
+
+    markFavorite() {
+        this.setState({favorite: true})
+    }
+
     render () {
 
         const itemId = this.props.navigation.getParam('itemId');
         const item = this.state.items.filter(item => item.id === itemId)[0];
-        return <RenderGearItem item={item} />;
+        return <RenderGearItem item={item}
+                    favorite={this.state.favorite}
+                    markFavorite={() => this.markFavorite()}
+                />;
     }
 }
 
