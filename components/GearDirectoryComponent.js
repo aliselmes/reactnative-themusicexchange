@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { ITEMS } from '../shared/items';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+import Loading from './LoadingComponent';
+
+const mapStateToProps = state => {
+    return {
+        items: state.items
+    };
+};
 
 class GearDirectory extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            items: ITEMS
-        };
-    }
 
     static navigationOptions = {
         title: 'Browse Gear'
@@ -17,12 +20,12 @@ class GearDirectory extends Component {
 
     render () {
         const { navigate } = this.props.navigation;
-        const renderDirectoryItem = ({item}) => {
+        const renderDirectoryItem = ({item}) => { 
             return (
                 <ListItem
                     title={item.name}
                     subtitle={` $${item.price} - ${item.location}`}
-                    leftAvatar={{source: require('./images/taylor.jpg')}}
+                    leftAvatar={{source: {uri: baseUrl + item.image}}}
                     onPress={() => navigate('GearInfo', { itemId: item.id})}
                 />
             );
@@ -30,7 +33,7 @@ class GearDirectory extends Component {
 
         return (
             <FlatList
-                data={this.state.items}
+                data={this.props.items.items}
                 renderItem={renderDirectoryItem}
                 keyExtractor={item => item.id.toString()} 
             />
@@ -38,4 +41,4 @@ class GearDirectory extends Component {
     }
 }
 
-export default GearDirectory; 
+export default connect(mapStateToProps)(GearDirectory); 

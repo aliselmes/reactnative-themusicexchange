@@ -5,13 +5,24 @@ import { GIGS } from '../shared/gigs';
 import { MUSICIANS } from '../shared/musicians';
 import { ITEMS } from '../shared/items';
 import { INSTRUCTORS } from '../shared/instructors';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+    return {
+        items: state.items,
+        musicians: state.musicians,
+        instructors: state.instructors,
+        gigs: state.gigs
+    };
+};
 
 function RenderItem({item}) {
     if (item) {
         return(
             <Card
                 featuredTitle={item.name}
-                image={require('./images/taylor.jpg')}
+                image={{uri: baseUrl + item.image}}
             >
                 <Text style={{margin: 10, alignSelf: 'center'}}>{`${item.location} - $${item.price} - Condition:${item.used}`}</Text>
             </Card>
@@ -37,7 +48,7 @@ function RenderInstructor({item}) {
         return(
             <Card
                 featuredTitle={item.name}
-                image={require('./images/taylor.jpg')}
+                image={{uri: baseUrl + item.image}}
             >
                 <Text style={{margin: 10, alignSelf: 'center'}}>{`${item.location} - ${item.instrument}`}</Text>
             </Card>
@@ -62,15 +73,6 @@ function RenderGig({item}) {
 
 
 class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state={
-            items: ITEMS,
-            musicians: MUSICIANS,
-            gigs: GIGS,
-            instructors: INSTRUCTORS 
-        };
-    }
 
     static navigationOptions = {
         title: 'Home'
@@ -80,20 +82,20 @@ class Home extends Component {
         return (
             <ScrollView>
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Buy. Sell. Trade. Locally.</Text>
-                <RenderItem item={this.state.items.filter(item => item.featured)[0]} />
+                <RenderItem item={this.props.items.items.filter(item => item.featured)[0]} />
 
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Find Musicians Near You</Text>
-                <RenderMusician item={this.state.musicians.filter(item => item.featured)[0]} />
+                <RenderMusician item={this.props.musicians.musicians.filter(musician => musician.featured)[0]} />
 
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Learn with Local Instructors </Text>
-                <RenderInstructor item={this.state.instructors.filter(item => item.featured)[0]} />
+                <RenderInstructor item={this.props.instructors.instructors.filter(instructor => instructor.featured)[0]} />
 
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Play Local Venues </Text>
-                <RenderGig item={this.state.gigs.filter(item => item.featured)[0]}/>
+                <RenderGig item={this.props.gigs.gigs.filter(gig => gig.featured)[0]}/>
 
             </ScrollView>
         );
     }
 }
 
-export default Home;
+export default connect(mapStateToProps)(Home); 

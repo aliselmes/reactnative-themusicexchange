@@ -3,12 +3,16 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { items } from './items';
 import { instructors } from './instructors';
+import { musicians } from './musicians';
+import { gigs } from './gigs';
 
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
             items,
-            instructors
+            instructors,
+            gigs,
+            musicians
         }),
         applyMiddleware(thunk, logger)
     );

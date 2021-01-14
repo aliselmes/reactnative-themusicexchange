@@ -8,6 +8,13 @@ import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
+import { connect } from 'react-redux';
+import { fetchItems, fetchMusicians } from '../redux/ActionCreators';
+
+const mapDispatchToProps = {
+    fetchItems,
+    fetchMusicians
+};
 
 const GearDirectoryNavigator = createStackNavigator(
     {
@@ -117,6 +124,11 @@ const AppNavigator = createAppContainer(MainNavigator);
 
 class Main extends Component {
 
+    componentDidMount() {
+        this.props.fetchItems();
+        this.props.fetchMusicians();
+    }
+
     render() {
         return(
             <View style={{flex: 1,
@@ -146,9 +158,9 @@ const styles = StyleSheet.create({
     },
     stackIcon: {
         marginLeft: 10,
-        color: '#fff',
+        color: '#fff', 
         fontSize: 24
     }
 });
 
-export default Main; 
+export default connect(null, mapDispatchToProps)(Main); 

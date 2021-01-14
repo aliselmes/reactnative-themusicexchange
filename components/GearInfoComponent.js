@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
 import { ITEMS } from '../shared/items';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+    return {
+        items: state.items
+    }
+};
 
 function RenderGearItem(props) {
 
@@ -12,7 +20,7 @@ function RenderGearItem(props) {
             <Card 
                 featuredTitle={item.name}
                 featuredSubtitle={`$${item.price} - ${item.location}`}
-                image={require('./images/taylor.jpg')}
+                image={{uri: baseUrl + item.image}}
             >
                 <Text style={{margin: 10}}>Condition: {item.used}</Text>
                 {item.trade ? <Text style={{margin: 10, color: 'green'}}>Trades Accepted</Text> : <Text style={{margin: 10, color: 'red'}}>No Trades</Text>}
@@ -38,7 +46,6 @@ class GearInfo extends Component {
     constructor(props) {
         super(props);
         this.state={
-            items: ITEMS,
             favorite: false
         };
     }
@@ -52,9 +59,9 @@ class GearInfo extends Component {
     }
 
     render () {
-
+        
         const itemId = this.props.navigation.getParam('itemId');
-        const item = this.state.items.filter(item => item.id === itemId)[0];
+        const item = this.props.items.items.filter(item => item.id === itemId)[0];
         return <RenderGearItem item={item}
                     favorite={this.state.favorite}
                     markFavorite={() => this.markFavorite()}
@@ -62,4 +69,4 @@ class GearInfo extends Component {
     }
 }
 
-export default GearInfo; 
+export default connect(mapStateToProps)(GearInfo); 
