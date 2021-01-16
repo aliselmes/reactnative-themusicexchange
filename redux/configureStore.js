@@ -5,6 +5,7 @@ import { items } from './items';
 import { instructors } from './instructors';
 import { musicians } from './musicians';
 import { gigs } from './gigs';
+import { favorites } from './favorites';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -12,7 +13,8 @@ export const ConfigureStore = () => {
             items,
             instructors,
             gigs,
-            musicians
+            musicians,
+            favorites
         }),
         applyMiddleware(thunk, logger)
     );

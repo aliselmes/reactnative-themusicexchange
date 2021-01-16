@@ -9,11 +9,13 @@ import { createAppContainer } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
 import { connect } from 'react-redux';
-import { fetchItems, fetchMusicians } from '../redux/ActionCreators';
+import { fetchItems, fetchMusicians, fetchInstructors, fetchGigs } from '../redux/ActionCreators';
 
 const mapDispatchToProps = {
     fetchItems,
-    fetchMusicians
+    fetchMusicians,
+    fetchInstructors,
+    fetchGigs
 };
 
 const GearDirectoryNavigator = createStackNavigator(
@@ -127,6 +129,8 @@ class Main extends Component {
     componentDidMount() {
         this.props.fetchItems();
         this.props.fetchMusicians();
+        this.props.fetchInstructors();
+        this.props.fetchGigs();
     }
 
     render() {

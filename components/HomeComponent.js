@@ -7,6 +7,7 @@ import { ITEMS } from '../shared/items';
 import { INSTRUCTORS } from '../shared/instructors';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import Loading from './LoadingComponent';
 
 const mapStateToProps = state => {
     return {
@@ -17,7 +18,18 @@ const mapStateToProps = state => {
     };
 };
 
-function RenderItem({item}) {
+function RenderItem(props) {
+    const { item } = props;
+    if (props.isLoading) {
+        return <Loading />
+    }
+    if (props.errMess) {
+        return (
+            <View>
+                <Text>{props.errMess}</Text>
+            </View>
+        );
+    }
     if (item) {
         return(
             <Card
@@ -31,7 +43,18 @@ function RenderItem({item}) {
     return <View />;
 }
 
-function RenderMusician({item}) {
+function RenderMusician(props) {
+    const { item } = props;
+    if (props.isLoading) {
+        return <Loading />
+    }
+    if (props.errMess) {
+        return (
+            <View>
+                <Text>{props.errMess}</Text>
+            </View>
+        );
+    }
     if (item) {
         return(
             <Card title={item.title} >
@@ -40,10 +63,21 @@ function RenderMusician({item}) {
             </Card>
         );
     }
-    return <View />;
+    return <View />; 
 }
 
-function RenderInstructor({item}) {
+function RenderInstructor(props) {
+    const { item } = props;
+    if (props.isLoading) {
+        return <Loading />
+    }
+    if (props.errMess) {
+        return (
+            <View>
+                <Text>{props.errMess}</Text>
+            </View>
+        );
+    }
     if (item) {
         return(
             <Card
@@ -57,7 +91,18 @@ function RenderInstructor({item}) {
     return <View />;
 }
 
-function RenderGig({item}) {
+function RenderGig(props) {
+    const { item } = props;
+    if (props.isLoading) {
+        return <Loading />
+    }
+    if (props.errMess) {
+        return (
+            <View>
+                <Text>{props.errMess}</Text>
+            </View>
+        );
+    }
     if (item) {
         return(
             <Card title={item.venue} >
@@ -74,7 +119,7 @@ function RenderGig({item}) {
 
 class Home extends Component {
 
-    static navigationOptions = {
+    static navigationOptions = { 
         title: 'Home'
     }
 
@@ -82,16 +127,28 @@ class Home extends Component {
         return (
             <ScrollView>
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Buy. Sell. Trade. Locally.</Text>
-                <RenderItem item={this.props.items.items.filter(item => item.featured)[0]} />
+                <RenderItem 
+                    item={this.props.items.items.filter(item => item.featured)[0]}
+                    isLoading={this.props.items.isLoading}
+                    errMess={this.props.items.errMess} />
 
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Find Musicians Near You</Text>
-                <RenderMusician item={this.props.musicians.musicians.filter(musician => musician.featured)[0]} />
+                <RenderMusician 
+                    item={this.props.musicians.musicians.filter(musician => musician.featured)[0]}
+                    isLoading={this.props.musicians.isLoading}
+                    errMess={this.props.musicians.errMess}/>
 
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Learn with Local Instructors </Text>
-                <RenderInstructor item={this.props.instructors.instructors.filter(instructor => instructor.featured)[0]} />
+                <RenderInstructor 
+                    item={this.props.instructors.instructors.filter(instructor => instructor.featured)[0]}
+                    isLoading={this.props.instructors.isLoading}
+                    errMess={this.props.instructors.errMess} />
 
                 <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Play Local Venues </Text>
-                <RenderGig item={this.props.gigs.gigs.filter(gig => gig.featured)[0]}/>
+                <RenderGig 
+                    item={this.props.gigs.gigs.filter(gig => gig.featured)[0]}
+                    isLoading={this.props.gigs.isLoading}
+                    errMess={this.props.gigs.errMess} />
 
             </ScrollView>
         );

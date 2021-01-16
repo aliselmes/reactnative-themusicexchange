@@ -4,11 +4,17 @@ import { Card, Icon } from 'react-native-elements';
 import { ITEMS } from '../shared/items';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import { postFavorite } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
-        items: state.items
-    }
+        items: state.items,
+        favorites: state.favorites
+    };
+};
+
+const mapDispatchToProps = {
+    postFavorite: itemId => (postFavorite(itemId))
 };
 
 function RenderGearItem(props) {
@@ -34,7 +40,7 @@ function RenderGearItem(props) {
                     raised
                     reverse
                     onPress={() => props.favorite ?
-                        console.log('Already set as a favorite') : props.markFavorite()}
+                        console.log('Already set as a favorite') : props.markFavorite()} 
                 />
             </Card>
         );
@@ -43,19 +49,13 @@ function RenderGearItem(props) {
 }
 
 class GearInfo extends Component {
-    constructor(props) {
-        super(props);
-        this.state={
-            favorite: false
-        };
-    }
 
     static navigationOptions = {
         title: 'Item Information'
     }
 
-    markFavorite() {
-        this.setState({favorite: true})
+    markFavorite(itemId) {
+        this.props.postFavorite(itemId);
     }
 
     render () {
@@ -63,10 +63,10 @@ class GearInfo extends Component {
         const itemId = this.props.navigation.getParam('itemId');
         const item = this.props.items.items.filter(item => item.id === itemId)[0];
         return <RenderGearItem item={item}
-                    favorite={this.state.favorite}
-                    markFavorite={() => this.markFavorite()}
+                    favorite={this.props.favorites.includes(itemId)}
+                    markFavorite={() => this.markFavorite(itemId)}
                 />;
     }
 }
 
-export default connect(mapStateToProps)(GearInfo); 
+export default connect(mapStateToProps, mapDispatchToProps)(GearInfo);  
