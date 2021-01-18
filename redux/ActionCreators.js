@@ -159,3 +159,8 @@ export const addFavorite = itemId => ({
     type: ActionTypes.ADD_FAVORITE,
     payload: itemId
 });
+
+export const deleteFavorite = itemId => ({
+    type: ActionTypes.DELETE_FAVORITE,
+    payload: itemId
+});
