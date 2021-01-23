@@ -3,6 +3,8 @@ import Home from './HomeComponent';
 import GearDirectory from './GearDirectoryComponent';
 import GearInfo from './GearInfoComponent';
 import Favorites from './FavoritesComponent';
+import Login from './LoginComponent';
+import Contact from './ContactComponent';
 import { View, Platform, StyleSheet, Text, ScrollView } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
@@ -98,6 +100,52 @@ const FavoritesNavigator = createStackNavigator (
 
 );
 
+const LoginNavigator = createStackNavigator(
+    {
+        Login: { screen: Login }
+    },
+    {
+        defaultNavigationOptions: ({navigation}) => ({
+            headerStyle: {
+                backgroundColor: '#16425b'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            },
+            headerLeft: <Icon
+                name='sign-in'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
+    }
+);
+
+const ContactNavigator = createStackNavigator(
+    {
+        Contact: { screen: Contact }
+    },
+    {
+        defaultNavigationOptions : ({navigation}) => ({
+            headerStyle: {
+                backgroundColor: '#16425b'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            },
+            headerLeft: <Icon 
+                    name='address-card'
+                    type='font-awesome'
+                    iconStyle={styles.stackIcon}
+                    onPress={() => navigation.toggleDrawer()}
+                />
+        })
+    }
+);
+
 const CustomDrawerContentComponent = props => (
     <ScrollView>
         <SafeAreaView
@@ -115,6 +163,19 @@ const CustomDrawerContentComponent = props => (
 
 const MainNavigator = createDrawerNavigator(
     {
+        Login: {
+            screen: LoginNavigator,
+            navigationOptions: {
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='sign-in'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        },
         Home: { 
             screen: HomeNavigator,
             navigationOptions: {
@@ -131,6 +192,7 @@ const MainNavigator = createDrawerNavigator(
         GearDirectory: { 
             screen: GearDirectoryNavigator,
             navigationOptions: {
+                drawerLabel: 'Browse Gear',
                 drawerIcon: ({tintColor}) => (
                     <Icon
                         name='list'
@@ -154,9 +216,24 @@ const MainNavigator = createDrawerNavigator(
                     />
                 )
             }
+        },
+        Contact: { 
+            screen: ContactNavigator,
+            navigationOptions: {
+                drawerLabel: 'Contact Us',
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='address-card'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
         }
     },
     {
+        initialRouteName: 'Home',
         drawerBackgroundColor: '#D9DCD6',
         contentComponent: CustomDrawerContentComponent
     }
@@ -188,7 +265,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     drawerHeader: {
-        backgroundColor: '#2F6690',
+        backgroundColor: '#16425B',
         height: 140,
         alignItems: 'center',
         justifyContent: 'center',

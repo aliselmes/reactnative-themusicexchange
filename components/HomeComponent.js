@@ -126,25 +126,25 @@ class Home extends Component {
     render() {
         return (
             <ScrollView>
-                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Buy. Sell. Trade. Locally.</Text>
+                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20, color: '#2F6690'}}>Buy. Sell. Trade. Locally.</Text>
                 <RenderItem 
                     item={this.props.items.items.filter(item => item.featured)[0]}
                     isLoading={this.props.items.isLoading}
                     errMess={this.props.items.errMess} />
 
-                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Find Musicians Near You</Text>
+                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20, color: '#2F6690'}}>Find Musicians Near You</Text>
                 <RenderMusician 
                     item={this.props.musicians.musicians.filter(musician => musician.featured)[0]}
                     isLoading={this.props.musicians.isLoading}
                     errMess={this.props.musicians.errMess}/>
 
-                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Learn with Local Instructors </Text>
+                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20, color: '#2F6690'}}>Learn with Local Instructors </Text>
                 <RenderInstructor 
                     item={this.props.instructors.instructors.filter(instructor => instructor.featured)[0]}
                     isLoading={this.props.instructors.isLoading}
                     errMess={this.props.instructors.errMess} />
 
-                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20}}>Play Local Venues </Text>
+                <Text style={{margin: 20, fontWeight: 'bold', fontSize: 20, color: '#2F6690'}}>Play Local Venues </Text>
                 <RenderGig 
                     item={this.props.gigs.gigs.filter(gig => gig.featured)[0]}
                     isLoading={this.props.gigs.isLoading}

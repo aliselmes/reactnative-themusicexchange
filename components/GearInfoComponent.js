@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Modal, Button, StyleSheet, Alert, ScrollView } from 'react-native';
+import { Text, View, Modal, Button, StyleSheet, Alert, ScrollView, Image } from 'react-native';
 import { Card, Icon, Input} from 'react-native-elements';
 import { ITEMS } from '../shared/items';
 import { connect } from 'react-redux';
@@ -25,9 +25,10 @@ function RenderGearItem(props) {
         return (
             <Card 
                 featuredTitle={item.name}
-                featuredSubtitle={`$${item.price} - ${item.location}`}
                 image={{uri: baseUrl + item.image}}
             >
+                <Text style={{margin: 10, fontWeight: 'bold'}}>${item.price}</Text>
+                <Text style={{margin: 10}}>{item.location}</Text>
                 <Text style={{margin: 10}}>Condition: {item.used}</Text>
                 {item.trade ? <Text style={{margin: 10, color: 'green'}}>Trades Accepted</Text> : <Text style={{margin: 10, color: 'red'}}>No Trades</Text>}
                 <Text style={{margin: 10}}>
