@@ -4,7 +4,7 @@ export const GIGS = [
         location: 'Sioux Falls, SD',
         date: '5/13/21',
         time: '19:00',
-        details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fermentum nulla eu nisi tempus, quis ultricies tellus placerat. Curabitur elit nisi, ullamcorper nec placerat sed, suscipit id nisl.',
+        details: 'Opportunity available to open for a national touring artist. Please send music samples and link to your band\'s webpage',
         featured: true
     },
     {

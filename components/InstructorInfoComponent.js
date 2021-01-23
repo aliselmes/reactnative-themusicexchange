@@ -8,16 +8,16 @@ import { postFavorite } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
-        items: state.items,
+        instructors: state.instructors,
         favorites: state.favorites
     };
 };
 
 const mapDispatchToProps = {
-    postFavorite: itemId => (postFavorite(itemId))
+    postFavorite: instructorId => (postFavorite(instructorId))
 };
 
-function RenderGearItem(props) {
+function RenderInstructor(props) {
 
     const { item } = props;
 
@@ -37,10 +37,9 @@ function RenderGearItem(props) {
                 featuredTitle={item.name}
                 image={{uri: baseUrl + item.image}}
             >
-                <Text style={{margin: 10, fontWeight: 'bold'}}>${item.price}</Text>
+                <Text style={{margin: 10, fontWeight: 'bold'}}>{item.instrument}</Text>
                 <Text style={{margin: 10}}>{item.location}</Text>
-                <Text style={{margin: 10}}>Condition: {item.used}</Text>
-                {item.trade ? <Text style={{margin: 10, color: 'green'}}>Trades Accepted</Text> : <Text style={{margin: 10, color: 'red'}}>No Trades</Text>}
+                <Text style={{margin: 10}}>Rate: ${item.rate}/hour</Text>
                 <Text style={{margin: 10}}>
                     {item.description}
                 </Text>
@@ -77,7 +76,7 @@ function RenderGearItem(props) {
     return <View />;
 }
 
-class GearInfo extends Component {
+class InstructorInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -87,11 +86,11 @@ class GearInfo extends Component {
         };
     }
     static navigationOptions = {
-        title: 'Item Information'
+        title: 'Instructor Information'
     }
 
-    markFavorite(itemId) {
-        this.props.postFavorite(itemId);
+    markFavorite(instructorId) {
+        this.props.postFavorite(instructorId);
     }
 
     toggleModal() {
@@ -124,13 +123,13 @@ class GearInfo extends Component {
 
     render () {
         
-        const itemId = this.props.navigation.getParam('itemId');
-        const item = this.props.items.items.filter(item => item.id === itemId)[0];
+        const instructorId = this.props.navigation.getParam('instructorId');
+        const item = this.props.instructors.instructors.filter(item => item.id === instructorId)[0];
         return (
             <ScrollView>
-                <RenderGearItem item={item}
-                    favorite={this.props.favorites.includes(itemId)}
-                    markFavorite={() => this.markFavorite(itemId)}
+                <RenderInstructor item={item}
+                    favorite={this.props.favorites.includes(instructorId)}
+                    markFavorite={() => this.markFavorite(instructorId)}
                     onShowModal={() => this.toggleModal()}
                 />
                 <Modal
@@ -140,7 +139,7 @@ class GearInfo extends Component {
                     onRequestClose={() => this.toggleModal()}
                 >
                     <View style={styles.modal}>
-                        <Text style={{alignSelf: 'center', fontSize: 20, marginBottom: 20, fontWeight: 'bold'}}>Message Seller</Text>
+                        <Text style={{alignSelf: 'center', fontSize: 20, marginBottom: 20, fontWeight: 'bold'}}>Message Instructor</Text>
                         <Input
                             placeholder='Your Name'
                             leftIcon = {<Icon name='user-o' type='font-awesome'/>}
@@ -193,4 +192,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GearInfo);  
+export default connect(mapStateToProps, mapDispatchToProps)(InstructorInfo);  

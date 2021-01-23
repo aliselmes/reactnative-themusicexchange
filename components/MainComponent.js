@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Home from './HomeComponent';
 import GearDirectory from './GearDirectoryComponent';
 import GearInfo from './GearInfoComponent';
+import InstructorDirectory from './InstructorDirectoryComponent';
+import InstructorInfo from './InstructorInfoComponent';
 import Favorites from './FavoritesComponent';
 import Login from './LoginComponent';
 import Contact from './ContactComponent';
@@ -38,6 +40,35 @@ const GearDirectoryNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'GearDirectory',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#16425b'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            }
+        }
+    }
+);
+
+const InstructorDirectoryNavigator = createStackNavigator(
+    {
+        InstructorDirectory: { 
+                screen: InstructorDirectory,
+                navigationOptions: ({navigation}) => ({
+                    headerLeft: <Icon
+                        name='music'
+                        type='font-awesome'
+                        iconStyle={styles.stackIcon}
+                        onPress={() => navigation.toggleDrawer()}
+                    />    
+                })
+             },
+        InstructorInfo: { screen: InstructorInfo }
+    },
+    {
+        initialRouteName: 'InstructorDirectory',
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: '#16425b'
@@ -203,6 +234,20 @@ const MainNavigator = createDrawerNavigator(
                 )
             }
          },
+         InstructorDirectory: { 
+            screen: InstructorDirectoryNavigator,
+            navigationOptions: {
+                drawerLabel: 'Instructors',
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='music'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+         },
          Favorites: {
             screen: FavoritesNavigator,
             navigationOptions: {
@@ -221,7 +266,7 @@ const MainNavigator = createDrawerNavigator(
             screen: ContactNavigator,
             navigationOptions: {
                 drawerLabel: 'Contact Us',
-                drawerIcon: ({tintColor}) => (
+                drawerIcon: ({tintColor}) => ( 
                     <Icon
                         name='address-card'
                         type='font-awesome'
