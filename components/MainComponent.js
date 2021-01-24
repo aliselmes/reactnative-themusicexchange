@@ -4,6 +4,10 @@ import GearDirectory from './GearDirectoryComponent';
 import GearInfo from './GearInfoComponent';
 import InstructorDirectory from './InstructorDirectoryComponent';
 import InstructorInfo from './InstructorInfoComponent';
+import MusicianDirectory from './MusicianDirectoryComponent';
+import MusicianInfo from './MusicianInfoComponent';
+import GigDirectory from './GigDirectoryComponent';
+import GigInfo from './GigInfoComponent';
 import Favorites from './FavoritesComponent';
 import Login from './LoginComponent';
 import Contact from './ContactComponent';
@@ -58,7 +62,7 @@ const InstructorDirectoryNavigator = createStackNavigator(
                 screen: InstructorDirectory,
                 navigationOptions: ({navigation}) => ({
                     headerLeft: <Icon
-                        name='music'
+                        name='mortar-board'
                         type='font-awesome'
                         iconStyle={styles.stackIcon}
                         onPress={() => navigation.toggleDrawer()}
@@ -69,6 +73,64 @@ const InstructorDirectoryNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'InstructorDirectory',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#16425b'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            }
+        }
+    }
+);
+
+const MusicianDirectoryNavigator = createStackNavigator(
+    {
+        MusicianDirectory: { 
+                screen: MusicianDirectory,
+                navigationOptions: ({navigation}) => ({
+                    headerLeft: <Icon
+                        name='music'
+                        type='font-awesome'
+                        iconStyle={styles.stackIcon}
+                        onPress={() => navigation.toggleDrawer()}
+                    />    
+                })
+             },
+        MusicianInfo: { screen: MusicianInfo }
+    },
+    {
+        initialRouteName: 'MusicianDirectory',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#16425b'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            }
+        }
+    }
+);
+
+const GigDirectoryNavigator = createStackNavigator(
+    {
+        GigDirectory: { 
+                screen: GigDirectory,
+                navigationOptions: ({navigation}) => ({
+                    headerLeft: <Icon
+                        name='microphone'
+                        type='font-awesome'
+                        iconStyle={styles.stackIcon}
+                        onPress={() => navigation.toggleDrawer()}
+                    />    
+                })
+             },
+        GigInfo: { screen: GigInfo }
+    },
+    {
+        initialRouteName: 'GigDirectory',
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: '#16425b'
@@ -240,7 +302,35 @@ const MainNavigator = createDrawerNavigator(
                 drawerLabel: 'Instructors',
                 drawerIcon: ({tintColor}) => (
                     <Icon
+                        name='mortar-board'
+                        type='font-awesome'
+                        size={20}
+                        color={tintColor}
+                    />
+                )
+            }
+         },
+         MusicianDirectory: { 
+            screen: MusicianDirectoryNavigator,
+            navigationOptions: {
+                drawerLabel: 'Musicians',
+                drawerIcon: ({tintColor}) => (
+                    <Icon
                         name='music'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+         },
+         GigDirectory: { 
+            screen: GigDirectoryNavigator,
+            navigationOptions: {
+                drawerLabel: 'Gigs',
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='microphone'
                         type='font-awesome'
                         size={24}
                         color={tintColor}
@@ -256,7 +346,7 @@ const MainNavigator = createDrawerNavigator(
                     <Icon
                         name='heart'
                         type='font-awesome'
-                        size={24}
+                        size={23}
                         color={tintColor}
                     />
                 )
@@ -270,7 +360,7 @@ const MainNavigator = createDrawerNavigator(
                     <Icon
                         name='address-card'
                         type='font-awesome'
-                        size={24}
+                        size={20}
                         color={tintColor}
                     />
                 )
@@ -318,7 +408,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     drawerHeaderText: {
-        color: '#D9DCD6',
+        color: '#fff',
         fontSize: 24,
         fontWeight: 'bold',
     },
