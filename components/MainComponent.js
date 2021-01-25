@@ -11,7 +11,7 @@ import GigInfo from './GigInfoComponent';
 import Favorites from './FavoritesComponent';
 import Login from './LoginComponent';
 import Contact from './ContactComponent';
-import { View, Platform, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, Platform, StyleSheet, Text, ScrollView, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
@@ -46,7 +46,7 @@ const GearDirectoryNavigator = createStackNavigator(
         initialRouteName: 'GearDirectory',
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: '#16425b'
+                backgroundColor: '#000',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -75,7 +75,7 @@ const InstructorDirectoryNavigator = createStackNavigator(
         initialRouteName: 'InstructorDirectory',
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: '#16425b'
+                backgroundColor: '#000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -104,7 +104,7 @@ const MusicianDirectoryNavigator = createStackNavigator(
         initialRouteName: 'MusicianDirectory',
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: '#16425b'
+                backgroundColor: '#000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -133,7 +133,7 @@ const GigDirectoryNavigator = createStackNavigator(
         initialRouteName: 'GigDirectory',
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: '#16425b'
+                backgroundColor: '#000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -151,18 +151,23 @@ const HomeNavigator = createStackNavigator (
         initialRouteName: 'Home',
         defaultNavigationOptions: ({navigation}) => ({
             headerStyle: {
-                backgroundColor: '#16425b'
+                backgroundColor: '#000',
+                paddingBottom: 20
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
-                color: '#fff'
+                color: '#fff',
+                fontWeight: 'bold',
+                fontSize: 26,
+                fontFamily: 'monospace'
             },
-            headerLeft: <Icon
-                        name='home'
-                        type='font-awesome'
-                        iconStyle={styles.stackIcon}
-                        onPress={() => navigation.toggleDrawer()}
-                    /> 
+            headerLeft: <Icon 
+                            name='navicon'
+                            reverse
+                            type='font-awesome'
+                            iconStyle={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
         })
     }
 
@@ -176,7 +181,7 @@ const FavoritesNavigator = createStackNavigator (
     {
         defaultNavigationOptions: ({navigation}) => ({
             headerStyle: {
-                backgroundColor: '#16425b'
+                backgroundColor: '#000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -200,7 +205,7 @@ const LoginNavigator = createStackNavigator(
     {
         defaultNavigationOptions: ({navigation}) => ({
             headerStyle: {
-                backgroundColor: '#16425b'
+                backgroundColor: '#000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -223,7 +228,7 @@ const ContactNavigator = createStackNavigator(
     {
         defaultNavigationOptions : ({navigation}) => ({
             headerStyle: {
-                backgroundColor: '#16425b'
+                backgroundColor: '#000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -245,8 +250,14 @@ const CustomDrawerContentComponent = props => (
             style={styles.container}
             forceInset={{top: 'always', horizontal: 'never'}}>
             <View style={styles.drawerHeader}>
+            <View style={{flex: 1}}>
+                    <Image  
+                        source={require('./images/musicexchangelogo.png')}
+                        style={styles.drawerImage}
+                    />
+                </View>
                 <View>
-                    <Text style={styles.drawerHeaderText}>The Music Exchange</Text>
+                    <Text style={styles.drawerHeaderText}>Menu</Text>
                 </View>
             </View>
             <DrawerItems {...props} />
@@ -266,7 +277,7 @@ const MainNavigator = createDrawerNavigator(
                         size={24}
                         color={tintColor}
                     />
-                )
+                ),
             }
         },
         Home: { 
@@ -369,8 +380,12 @@ const MainNavigator = createDrawerNavigator(
     },
     {
         initialRouteName: 'Home',
-        drawerBackgroundColor: '#D9DCD6',
-        contentComponent: CustomDrawerContentComponent
+        drawerBackgroundColor: '#000',
+        contentComponent: CustomDrawerContentComponent,
+        contentOptions: {
+            activeTintColor: '#fff',
+            inactiveTintColor: '#999999'
+        }
     }
 );
 
@@ -400,17 +415,24 @@ const styles = StyleSheet.create({
         flex: 1
     },
     drawerHeader: {
-        backgroundColor: '#16425B',
+        backgroundColor: '#000',
         height: 140,
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     drawerHeaderText: {
         color: '#fff',
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 'bold',
+        fontFamily: 'monospace',
+        marginRight: 100
+    },
+    drawerImage: {
+        margin: 10,
+        height: 75,
+        width: 75
     },
     stackIcon: {
         marginLeft: 10,

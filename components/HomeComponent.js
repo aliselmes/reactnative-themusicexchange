@@ -120,7 +120,7 @@ function RenderGig(props) {
 class Home extends Component {
 
     static navigationOptions = { 
-        title: 'Home'
+        title: 'The Music Exchange'
     }
 
     render() {
